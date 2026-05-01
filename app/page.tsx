@@ -408,33 +408,36 @@ export default function NarrativasErrantes() {
   const startRecordingSetup = React.useCallback(async () => {
     try {
       setError(null);
+      setTranscript(''); // Limpa transcrição anterior
       const uid = Date.now().toString(36).toUpperCase();
       setSessionUid(uid);
+      
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { 
           facingMode: 'environment', 
-          width: { ideal: 1920, max: 1920 }, 
-          height: { ideal: 1080, max: 1080 } 
+          width: { ideal: 1280 }, 
+          height: { ideal: 720 } 
         },
         audio: true, 
       });
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        videoRef.current.onloadedmetadata = () => {
-           videoRef.current?.play().then(() => {
-             startCanvasLoop();
-           });
-        };
+        // Tenta dar play IMEDIATAMENTE (crucial para mobile)
+        await videoRef.current.play();
+        startCanvasLoop();
       }
 
       setView('recording');
       setupRecognition();
       setupAudio();
     } catch (err: any) {
-      setError("Erro ao acessar câmera/microfone: " + err.message);
+      const msg = "Erro de Permissão: Verifique se o site tem acesso à câmera e microfone e se está usando HTTPS. Detalhe: " + err.message;
+      setError(msg);
+      console.error(msg);
+      alert(msg); // Alerta para debug imediato no mobile
     }
-  }, [selectedGenre, view]); // Adicionado view às dependências
+  }, [selectedGenre, view]);
 
   const handleToggleRecording = () => {
     if (!isRecording) {
