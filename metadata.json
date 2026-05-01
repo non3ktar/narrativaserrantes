@@ -1,0 +1,9 @@
+{
+  "name": "Narrativas Errantes",
+  "description": "App de narração literária urbana com filtros visuais e legendas em tempo real.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": []
+}

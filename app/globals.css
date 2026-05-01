@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #050505;
+  --color-brand-ink: #ffffff;
+  --color-brand-accent: #ef4444;
+  --color-brand-card: #141414;
+  --color-brand-line: #2d2d2d;
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  --bg: #050505;
+  --ink: #ffffff;
+  --accent: #ef4444;
+  --card: #141414;
+  --line: #2d2d2d;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+}
+
+.bento-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.bento-card-active {
+  border-color: var(--accent);
+  background: rgba(239, 68, 68, 0.05);
+}
